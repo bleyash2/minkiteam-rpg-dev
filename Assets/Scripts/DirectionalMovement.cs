@@ -8,7 +8,10 @@ public class DirectionalMovement : MonoBehaviour
     public Rigidbody rb;
     Vector3 movement;
 
+    public Material playerMat;
+
     public Animator animator;
+    public SpriteRenderer spriteRenderer;
     void handleMovement()
     {
         movement.x = -Input.GetAxisRaw("Horizontal");
@@ -20,11 +23,22 @@ public class DirectionalMovement : MonoBehaviour
         animator.SetFloat("Speed", movement.sqrMagnitude);
     }
 
+    void handleMaterial()
+    {
+        playerMat.mainTexture = spriteRenderer.sprite.texture;
+        playerMat.SetTexture("PlayerTexture", spriteRenderer.sprite.texture);
+        playerMat.SetTexture("_MainTex", spriteRenderer.sprite.texture);
+        Debug.Log(spriteRenderer.sprite.texture);
+        Debug.Log(playerMat.mainTexture);
+    }
+
     void Update()
     {
         handleMovement();
-
-
+        if (playerMat != null)
+        {
+            handleMaterial();
+        }
     }
 
     // Update is called once per frame
